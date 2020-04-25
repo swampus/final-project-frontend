@@ -1,0 +1,38 @@
+<div class="container">
+    <form id="contact" ng-submit="submit()" method="POST"
+          ng-controller="View1Ctrl" >
+        <h3>Portal registration form</h3>
+        <fieldset>
+            <input id="name" ng-model="name" placeholder="Your name" type="text" tabindex="1"  autofocus >
+        </fieldset>
+        <fieldset>
+            <input id="surname" ng-model="surname"
+                   placeholder="Your surname" type="text" tabindex="2" >
+        </fieldset>
+        <fieldset>
+            <input id="email" ng-model="email"
+                   placeholder="Your Email Address" type="email" tabindex="3" >
+        </fieldset>
+        <fieldset>
+            <input id="user_pk" ng-model="user_pk"
+                   placeholder="Your personal code" type="text" tabindex="4" >
+        </fieldset>
+        <fieldset>
+            <input id="address" ng-model="address"
+                   placeholder="Your Address" type="text" tabindex="5" >
+        </fieldset>
+        <fieldset>
+            <input id="password" ng-model="password"
+                   placeholder="Your password" type="password" tabindex="6"  />
+        </fieldset>
+        <fieldset>
+            <input  id="password_re" ng-model="password_re"
+                    placeholder="Retype password" type="password" tabindex="7" />
+        </fieldset>
+
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>
+    </form>
+</div>
+required
