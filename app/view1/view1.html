@@ -1,38 +1,50 @@
-<div class="container">
-    <form id="contact" ng-submit="submit()" method="POST"
-          ng-controller="View1Ctrl" >
-        <h3>Portal registration form</h3>
+<div class="container" ng-controller="View1Ctrl">
+    <input type="text" id="userId" value=""
+           ng-model="userIdForSelect" required/>
+    <input type="button" id="getUserBtn"
+           ng-click="click()" value="[GET USER]"/>
+
+    <div id="isa_error" class="isa_error" style="visibility:hidden">
+        <i class="fa fa-times-circle">
+            <span id="error_msg_text"></span>
+        </i>
+    </div>
+
+    <form id="contact" ng-controller="View1Ctrl" ng-submit="submit()" method="post">
+        <h3>Register</h3>
         <fieldset>
-            <input id="name" ng-model="name" placeholder="Your name" type="text" tabindex="1"  autofocus >
+            <input id="name" ng-model="name"
+                   placeholder="Your name" type="text" tabindex="1" required autofocus>
         </fieldset>
         <fieldset>
             <input id="surname" ng-model="surname"
-                   placeholder="Your surname" type="text" tabindex="2" >
-        </fieldset>
-        <fieldset>
-            <input id="email" ng-model="email"
-                   placeholder="Your Email Address" type="email" tabindex="3" >
+                   placeholder="Your Surname" type="text" tabindex="2" required>
         </fieldset>
         <fieldset>
             <input id="user_pk" ng-model="user_pk"
-                   placeholder="Your personal code" type="text" tabindex="4" >
+                   placeholder="Your Personal pk" type="text" tabindex="3" required>
+        </fieldset>
+        <fieldset>
+            <input id="email" ng-model="email"
+                   placeholder="Your Email" type="email" tabindex="4" required>
         </fieldset>
         <fieldset>
             <input id="address" ng-model="address"
-                   placeholder="Your Address" type="text" tabindex="5" >
+                   placeholder="Your address" type="text" tabindex="4" required>
         </fieldset>
         <fieldset>
             <input id="password" ng-model="password"
-                   placeholder="Your password" type="password" tabindex="6"  />
+                   placeholder="password" type="password" tabindex="4" required>
         </fieldset>
         <fieldset>
-            <input  id="password_re" ng-model="password_re"
-                    placeholder="Retype password" type="password" tabindex="7" />
+            <input id="password_re"  ng-model="password_re"
+                   placeholder="retupe password" type="password" tabindex="4" required>
         </fieldset>
 
         <fieldset>
             <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
         </fieldset>
+        <p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a></p>
     </form>
+
 </div>
-required
