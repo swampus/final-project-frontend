@@ -30,12 +30,11 @@ angular.module('myApp.view1', ['ngRoute'])
             $httpClient.get(requestUrl).then(function (response) {
                 console.log(response);
                 if(response.data.type === "Response"){
-                    document.getElementById("name").value = response.data.name;
-                    document.getElementById("surname").value = response.data.surname;
-                    document.getElementById("email").value = response.data.email;
-                    document.getElementById("user_pk").value = response.data.user_pk;
-                    document.getElementById("address").value = response.data.address;
-                    document.getElementById("name").value = response.data.name;
+                    $scope.name = response.data.name;
+                    $scope.surname= response.data.surname;
+                    $scope.email = response.data.email;
+                    $scope.user_pk= response.data.user_pk;
+                    $scope.address = response.data.address;
                 }
                 if(response.data.type === "ERROR"){
                     document.getElementById("isa_error").style.visibility = 'visible';
