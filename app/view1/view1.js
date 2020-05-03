@@ -11,25 +11,18 @@ angular.module('myApp.view1', ['ngRoute'])
 
     .controller('View1Ctrl', ['$scope', '$http', function ($scope, $httpClient) {
 
-
-        $scope.name = "";
-        $scope.surname = "";
-        $scope.email = "";
-        $scope.user_pk = "";
-        $scope.address = "";
-        $scope.password = "";
-        $scope.password_re = "";
-
         $scope.userIdForSelect = "";
 
         var formdata = "";
 
         $scope.click = function () {
+            console.log("click");
             var requestUrl = "http://localhost:8080/api/v1/rest/User/user(" + $scope.userIdForSelect + ")";
             document.getElementById("isa_error").style.visibility = 'hidden';
-            $httpClient.get(requestUrl).then(function (response) {
-                console.log(response);
+            $httpClient.post(requestUrl).then(function (response) {
+
                 if(response.data.type === "Response"){
+                    console.log(response);
                     $scope.name = response.data.name;
                     $scope.surname= response.data.surname;
                     $scope.email = response.data.email;

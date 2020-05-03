@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.view2',
   'myApp.userRegister',
   'myApp.userLogin',
+  'myApp.books',
   'myApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

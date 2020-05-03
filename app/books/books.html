@@ -1,0 +1,48 @@
+<div ng-controller="BooksCtrl">
+    <div id="isa_error" class="isa_error" style="display: none">
+        <i class="fa fa-times-circle">
+            <span id="error_msg_text"></span>
+        </i>
+    </div>
+    <div align="right" style="width:90%">
+        <div style="max-width: 300px;" align="right!important;">
+            <form class="example">
+                <input id="searchStr" name="searchStr" ng-model="searchStr" type="text" placeholder="Search..">
+                <button type="button" ng-click="clickFilter()">
+                    <i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <span onClick="showAdvanced()">[ advanced search ] </span>
+        <div id="advanced_search" style="display: none">
+            <div style="max-width: 250px">
+                <input type="text" placeholder="Name..." name="name_search">
+                <input type="text" placeholder="Annotation..." name="annotation_search">
+                <input type="text" placeholder="Author..." name="author_search">
+                <input type="text" placeholder="Year..." name="year_search">
+            </div>
+        </div>
+    </div>
+
+    <div align="center">
+        <table id="customers">
+
+            <tr>
+                <th>Num</th>
+                <th>Name</th>
+                <th>Annotation</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>ISBN</th>
+            </tr>
+
+            <tr id="ctr" ng-repeat="oneRec in arrRec track by $index">
+                <td>{{$index + 1}}</td>
+                <td>{{oneRec.name}}</td>
+                <td>{{oneRec.annotation}}</td>
+                <td>{{oneRec.author}}</td>
+                <td>{{oneRec.year}}</td>
+                <td>{{oneRec.isbn}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
