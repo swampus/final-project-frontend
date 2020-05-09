@@ -22,6 +22,24 @@ angular.module('myApp.books', ['ngRoute'])
             console.log(error);
         });
 
+        $scope.buttonClick = function ($bookId) {
+            console.log($bookId);
+            $httpClient.get("http://localhost:8080/api/v1/rest/BookContent.svc/book("+$bookId+")/page(1)")
+                .then(function (response) {
+                  console.log(response);
+                  document.getElementById("book_list").style.display = "none";
+                  document.getElementById("book_content").style.display = "block";
+                    document.getElementById("book_content_value").textContent = response.data.content;
+                }).catch(function (error) {
+                console.log(error);
+            })
+        };
+
+        $scope.goToBookList = function () {
+            document.getElementById("book_list").style.display = "block";
+            document.getElementById("book_content").style.display = "none";
+            document.getElementById("book_content_value").textContent = "";
+        }
 
         $scope.clickFilter = function () {
             document.getElementById('isa_error').textContent = "";
