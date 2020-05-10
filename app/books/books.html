@@ -1,57 +1,83 @@
 <div ng-controller="BooksCtrl">
     <div id="book_list">
-    <div id="isa_error" class="isa_error" style="display: none">
-        <i class="fa fa-times-circle">
-            <span id="error_msg_text"></span>
-        </i>
-    </div>
-    <div align="right" style="width:90%">
-        <div style="max-width: 300px;" align="right!important;">
-            <form class="example">
-                <input id="searchStr" name="searchStr" ng-model="searchStr" type="text" placeholder="Search..">
-                <button type="button" ng-click="clickFilter()">
-                    <i class="fa fa-search"></i></button>
-            </form>
+        <div id="isa_error" class="isa_error" style="display: none">
+            <i class="fa fa-times-circle">
+                <span id="error_msg_text"></span>
+            </i>
         </div>
-        <span onClick="showAdvanced()">[ advanced search ] </span>
-        <div id="advanced_search" style="display: none">
-            <div style="max-width: 250px">
-                <input type="text" placeholder="Name..." name="name_search">
-                <input type="text" placeholder="Annotation..." name="annotation_search">
-                <input type="text" placeholder="Author..." name="author_search">
-                <input type="text" placeholder="Year..." name="year_search">
+        <div align="right" style="width:90%">
+            <div style="max-width: 300px;" align="right!important;">
+                <form class="example">
+                    <input id="searchStr" name="searchStr" ng-model="searchStr" type="text" placeholder="Search..">
+                    <button type="button" ng-click="clickFilter()">
+                        <i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <span onClick="showAdvanced()">[ advanced search ] </span>
+            <div id="advanced_search" style="display: none">
+                <div style="max-width: 250px">
+                    <input type="text" placeholder="Name..." name="name_search">
+                    <input type="text" placeholder="Annotation..." name="annotation_search">
+                    <input type="text" placeholder="Author..." name="author_search">
+                    <input type="text" placeholder="Year..." name="year_search">
+                </div>
             </div>
         </div>
+
+        <div align="center">
+            <table id="customers">
+
+                <tr>
+                    <th>Num</th>
+                    <th>Name</th>
+                    <th>Annotation</th>
+                    <th>Author</th>
+                    <th>Year</th>
+                    <th>ISBN</th>
+                </tr>
+
+                <tr ng-click="buttonClick(oneRec.id)" id="ctr" ng-repeat="oneRec in arrRec track by $index">
+                    <td>{{$index + 1}}</td>
+                    <td>{{oneRec.name}}</td>
+                    <td>{{oneRec.annotation}}</td>
+                    <td>{{oneRec.author}}</td>
+                    <td>{{oneRec.year}}</td>
+                    <td>{{oneRec.isbn}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <div align="center">
-        <table id="customers">
+    <div id="book_content" style="display: none; text-align: center; vertical-align: center">
+        <div style="text-align: center">
+            <h1>Books Content</h1>
+            <hr/>
+            <div style="vertical-align: center;text-align: center; width: 100%">
+                <div align="center" id="book_content_value" style="width: 55%;text-align:center">
+                </div>
+                <br/>
+                <br/>
+                <hr/>
+                <div style="display: inline-block; width: 100% ">
+                    <div style="float: left; margin-left: 25px">
+                        <button id="prev" ng-click="backClick()" style="width: 100px" >[PREV]</button>
+                    </div>
+                    <div style="width: 80%;float: left">
+                          <span id="pageNumberSpan" style="vertical-align: center; color: #000000;
+                          text-decoration-style: solid"> PAGE NUM </span>
+                          <input type="hidden" min="1" style="width: 50px" id="pageNumber" ng-model="pageNumber" />
 
-            <tr>
-                <th>Num</th>
-                <th>Name</th>
-                <th>Annotation</th>
-                <th>Author</th>
-                <th>Year</th>
-                <th>ISBN</th>
-            </tr>
-
-            <tr ng-click="buttonClick(oneRec.id)" id="ctr" ng-repeat="oneRec in arrRec track by $index">
-                <td>{{$index + 1}}</td>
-                <td>{{oneRec.name}}</td>
-                <td>{{oneRec.annotation}}</td>
-                <td>{{oneRec.author}}</td>
-                <td>{{oneRec.year}}</td>
-                <td>{{oneRec.isbn}}</td>
-            </tr>
-        </table>
-    </div>
-    </div>
-    <div id="book_content" style="display: none">
-        <h1>Books Content</h1>
-        <hr/>
-        <div id="book_content_value"></div>
-
-        <button ng-click="goToBookList()"> Back to bookList</button>
+                        <label for="goToPage">Go to page:</label>
+                        <input id="goToPage" type="number" min="1" style="width: 50px"  ng-model="goToPage" />
+                        <br/>
+                          <input type="hidden" id="bookIdForm" ng-model="bookIdForm" />
+                    </div>
+                    <div style="float: left">
+                        <button id="next" style="width: 100px" ng-click="nextClick()">[NEXT]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button style="width: 10%;vertical-align: center" ng-click="goToBookList()"> Back to bookList</button>
     </div>
 </div>

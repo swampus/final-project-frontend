@@ -24,15 +24,98 @@ angular.module('myApp.books', ['ngRoute'])
 
         $scope.buttonClick = function ($bookId) {
             console.log($bookId);
-            $httpClient.get("http://localhost:8080/api/v1/rest/BookContent.svc/book("+$bookId+")/page(1)")
+            $httpClient.get("http://localhost:8080/api/v1/rest/BookContent.svc/book(" + $bookId + ")/page(1)")
                 .then(function (response) {
-                  console.log(response);
-                  document.getElementById("book_list").style.display = "none";
-                  document.getElementById("book_content").style.display = "block";
+                    console.log(response);
+                    document.getElementById("next").style.display = "block";
+                    document.getElementById("prev").style.display = "none";
+                    document.getElementById("book_list").style.display = "none";
+                    document.getElementById("book_content").style.display = "block";
                     document.getElementById("book_content_value").textContent = response.data.content;
+                    document.getElementById("pageNumberSpan").textContent = "[ 1 ]";
+                    $scope.bookIdForm = $bookId;
+                    $scope.pageNumber = 1;
+
+
                 }).catch(function (error) {
                 console.log(error);
             })
+        };
+
+        $scope.nextClick = function () {
+
+
+
+            var goToPage = false;
+            var stop = false;
+
+            if($scope.goToPage > $scope.pageNumber){
+
+                $httpClient.get("http://localhost:8080/api/v1/rest/BookContent.svc/book(" + $scope.bookIdForm + ")/page("
+                    + $scope.goToPage + ")").then(function (response) {
+                    console.log(response);
+                    if(response.data.content !== null || response.data.content !== ""){
+                        console.log("response.data.content");
+                        console.log(response.data.content);
+                        goToPage = true;
+                    }else{
+                        stop = true;
+                        goToPage = true;
+                    }
+                }).catch(function (error) {
+                   alert('page does not exists!');
+                    stop = true;
+                    goToPage = false;
+                })
+
+            }
+            if(goToPage){
+                $scope.pageNumber = $scope.goToPage;
+            }
+
+
+
+            if(!stop){
+                if(!goToPage) {
+                    $scope.pageNumber = $scope.pageNumber + 1;
+                }
+                $httpClient.get("http://localhost:8080/api/v1/rest/BookContent.svc/book(" + $scope.bookIdForm + ")/page("
+                    + $scope.pageNumber + ")").then(function (response) {
+                    console.log(response);
+
+                    document.getElementById("book_content_value").textContent = response.data.content;
+                    document.getElementById("pageNumberSpan").textContent = "[ " + $scope.pageNumber + " ]";
+
+                    document.getElementById("prev").style.display = "block";
+                }).catch(function (error) {
+                    document.getElementById("book_content_value").textContent = "Book Ended";
+                    document.getElementById("pageNumberSpan").textContent = "[ " + $scope.pageNumber + " ]";
+                    document.getElementById("next").style.display = "none";
+                })
+
+
+            }
+
+
+        };
+
+        $scope.backClick = function () {
+            $scope.pageNumber = $scope.pageNumber - 1;
+            document.getElementById("pageNumberSpan").textContent = "[ " + $scope.pageNumber + " ]";
+            document.getElementById("next").style.display = "block";
+            if($scope.pageNumber === 1){
+                document.getElementById("prev").style.display = "none";
+            }
+
+            $httpClient.get("http://localhost:8080/api/v1/rest/BookContent.svc/book(" + $scope.bookIdForm + ")/page("
+                + $scope.pageNumber + ")").then(function (response) {
+                console.log(response);
+                document.getElementById("book_content_value").textContent = response.data.content;
+            }).catch(function (error) {
+                console.log(error);
+            })
+
+
         };
 
         $scope.goToBookList = function () {
@@ -47,9 +130,9 @@ angular.module('myApp.books', ['ngRoute'])
 
             $httpClient.get("http://localhost:8080/api/v1/rest/Book.svc/books$filter=" + searchStr.value)
                 .then(function (response) {
-                    if(response.data.length > 0){
+                    if (response.data.length > 0) {
                         $scope.arrRec = response.data;
-                    }else{
+                    } else {
                         document.getElementById('isa_error').textContent = "No Books Found!";
                         document.getElementById('isa_error').style.display = "block";
                         $scope.arrRec = null;
